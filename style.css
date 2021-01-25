@@ -1,0 +1,179 @@
+body{
+	font-family: 'Open Sans', sans-serif;
+}
+
+.titleScreen{
+	margin: auto;
+	width: 50%;
+	padding: 10px;
+	align-items: center;
+	text-align: center;
+	color: #000000;
+}
+
+/* links */
+a {
+	color: #000000;
+	text-decoration: none;
+}
+
+ /* unvisited link */
+ a:link {
+	color: #000000;
+	text-decoration: none;
+}
+  
+/* visited link */
+a:visited {
+	color: #000000;
+	text-decoration: none;
+}
+  
+/* mouse over link */
+a:hover {
+	color: #000000;
+	text-decoration: none;
+}
+  
+/* selected link */
+a:active {
+	color: #000000;
+	text-decoration: none;
+} 
+
+
+
+.choiceBox{
+	align-items: left;
+	text-align: left;
+	width: 25%;
+	background-color: #ebe9e9;
+}
+
+.box{
+	color: #fff;
+	padding: 20px;
+	width: 80%;
+	margin-top: 20px;
+	border: 5px solid #000000;
+	display: none;
+}
+
+.static{
+	background: #0984e3;
+}
+
+h2.static{
+	color: #fff;
+	font-size: large;
+}
+
+#staticProcessButton {
+	border: 5px solid;
+	border-color: #808080;
+	background: #910cc5;
+	color: #fff;
+	font-family: calibri;
+	display: block;
+	width: 240px;
+	font-size: 18px;
+	text-transform: uppercase;
+	padding: 10px;
+	text-align: center;
+	margin: 20px auto;
+	cursor: pointer;
+}
+.dynamic{
+	background: #910cc5;
+ }
+
+ 
+h2.dynamic{
+	color: #fff;
+	font-size: large;
+}
+
+.instructionsText{
+	padding: 20px;
+	font-family: 'Arial Narrow', sans-serif;
+}
+
+#dynamicContentText {
+	width: 50%;
+	padding: 20px;
+	padding-top: 0;
+	font-family: calibri;
+	margin: 0 auto;
+	max-height: 100px;
+	text-align: justify;
+	overflow: hidden;
+	/* Set transitions up. */
+	-webkit-transition: max-height 0.7s;
+	-moz-transition: max-height 0.7s;
+	transition: max—height 0.7s;
+}
+
+#dynamicContentText.open {
+	max-height: 1000px;
+	/* Set transitions up. */
+	-webkit-transition: max-height 0.7s;
+	-moz-transition: max-height 0.7s;
+	transition: max-height 0.7s;
+}
+
+#dynamicShowMoreButton {
+	border: 5px solid;
+	border-color: #808080;
+	background: #1594e5;
+	color: #fff;
+	font-family: calibri;
+	display: block;
+	width: 240px;
+	font-size: 18px;
+	text-transform: uppercase;
+	padding: 10px;
+	text-align: center;
+	margin: 20px auto;
+	cursor: pointer;
+}
+
+.fileDisplayerDiv{
+	color: #000000;
+	background: #2845A4;
+	display: none;
+}
+
+/* =========================
+	Begin Static.html
+   ====================== */
+.testData{
+	float: right;
+	padding: 40px;
+	color: #000000;
+	background: #5769a3;
+	margin: 40px 40px 40px 40px auto;
+}
+
+/* unvisited link */
+a.testData {
+	color: #a56565;
+	text-decoration: underline;
+}
+
+ /* unvisited link */
+ a.testData:link {
+	color: #a56565;
+	text-decoration: underline;
+}
+  
+/* visited link */
+a.testData:visited {
+	color: #a56565;
+	text-decoration: underline;
+}
+  
+/* mouse over link */
+a.testData:hover {
+	color: #000000;
+	text-decoration: underline;
+}
