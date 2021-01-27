@@ -1,12 +1,27 @@
 /* ==========================================================
 #															#
+#	Define global variables by using var at creation		#
+#															#
+========================================================== */
+
+	var mergedPayload = "Nothing added to the mergedPayload varibale.";
+	var sentenceArray = [];
+
+/* ==========================================================
+#															#
 #	Define Functions										#
 #															#
 ========================================================== */
 
-// define global variables by using var at creation
-	var mergedPayload = "Nothing added to the mergedPayload varibale.";
-	var sentenceArray = [];
+function keysReduce (nmeakey, nmeaInputArray){
+	// Merge Key-Value pairs as defined above
+	// https://stackoverflow.com/a/50985915/13849868
+		nmeaInputArray = nmeakey.reduce((obj, key, index) => (
+			{ ...obj, [key]: nmeaInputArray[index] }
+		), {})
+		//  returns [{talkerId: '$GN', sentenceType: 'GGA', utcFromDevice: '...}]
+		console.log('testReduce: ', nmeaInputArray )
+};
 
 function sentenceParserFunction (inputBlock) {
 
@@ -39,33 +54,34 @@ function sentenceParserFunction (inputBlock) {
 				console.log('checksum:', checksum)
 
 			// Define Keys to be paired, later
-				const cfgKeys = [
-					"talkerId",
-					"sentenceType",
-					"B",
-					"C",
-					"D",
-					"E",
-					"F",
-					"G",
-					"H",
-					"I",
-					"J",
-					"K",
-					"L",
-					"M",
-					"N",
-					"O",
-					"P",
-					"Q",
-					"R",
-					"S",
-					"T",
-					"U",
-					"V",
-					"W",
-					"X",
-					"checksum"
+				const defineKeys = [
+					cfg {
+						"talkerId",
+						"sentenceType",
+						"B",
+						"C",
+						"D",
+						"E",
+						"F",
+						"G",
+						"H",
+						"I",
+						"J",
+						"K",
+						"L",
+						"M",
+						"N",
+						"O",
+						"P",
+						"Q",
+						"R",
+						"S",
+						"T",
+						"U",
+						"V",
+						"W",
+						"X",
+						"checksum"
 				];
 				
 				const ggaKeys = [
@@ -135,25 +151,14 @@ function sentenceParserFunction (inputBlock) {
 				if ( sentenceArray[indexi][1] == "CFG" ) {
 					// Do CFG things
 						console.log('Doing CFG things.');
-				
-					// Merge Key-Value pairs as defined above
-					// https://stackoverflow.com/a/50985915/13849868
-						sentenceArray[indexi] = cfgKeys.reduce((obj, key, index) => (
-							{ ...obj, [key]: sentenceArray[indexi][index] }	
-						), {})
-					//  returns [{talkerId: '$GN', sentenceType: 'GGA', utcFromDevice: '...}]
-					console.log('testReduce', sentenceArray[indexi] )
+					// Apply NMEA-183 Keys to each array element
+						keysReduce (cfgKeys, sentenceArray[indexi]);
 				} 
 				else if ( sentenceArray[indexi][1] == "GGA" ) {	
 					// Do GGA things
 						console.log('Doing GGA things.');
 						console.log(sentenceArray[indexi].length, ggaKeys.length)
-				
-					// Merge Key-Value pairs as defined above
-					// https://stackoverflow.com/a/50985915/13849868
-					sentenceArray[indexi] = ggaKeys.reduce((obj, key, index) => (
-						{ ...obj, [key]: sentenceArray[indexi][index] }	
-					), {})
+
 					//  returns [{talkerId: '$GN', sentenceType: 'GGA', utcFromDevice: '...}]
 					console.log('testReduce', sentenceArray[indexi] )
 
@@ -164,6 +169,10 @@ function sentenceParserFunction (inputBlock) {
 						if(sentenceArray[indexi].longitudeDirection === 'W') {
 							sentenceArray[indexi].longitude = '-'+ sentenceArray[indexi].longitude
 						}
+					
+					// Merge Key-Value pairs as defined above
+					// Apply NMEA-183 Keys to each array element
+					keysReduce (ggaKeys, sentenceArray[indexi]);
 				
 				}
 				else if ( sentenceArray[indexi][1] == "GST" ) {
@@ -171,10 +180,8 @@ function sentenceParserFunction (inputBlock) {
 						console.log('Doing GST things.');
 				
 					// Merge Key-Value pairs as defined above
-					// https://stackoverflow.com/a/50985915/13849868
-					sentenceArray[indexi] = gstKeys.reduce((obj, key, index) => (
-						{ ...obj, [key]: sentenceArray[indexi][index] }	
-					), {})
+					// Apply NMEA-183 Keys to each array element
+					keysReduce (gstKeys, sentenceArray[indexi]);
 					//  returns [{talkerId: '$GN', sentenceType: 'GST', TcOfAssociatedGgaFix: '...}]
 				
 				}
@@ -183,24 +190,20 @@ function sentenceParserFunction (inputBlock) {
 						console.log('Doing VTG things.');
 				
 					// Merge Key-Value pairs as defined above
-					// https://stackoverflow.com/a/50985915/13849868
-					sentenceArray[indexi] = vtgKeys.reduce((obj, key, index) => (
-						{ ...obj, [key]: sentenceArray[indexi][index] }	
-					), {})
+					// Apply NMEA-183 Keys to each array element
+					keysReduce (vtgKeys, sentenceArray[indexi]);
 					//  returns [{talkerId: '$GN', sentenceType: 'VTG', CourseOverGroundDegreesTrue: '...}]
 			
 				}
 				else if ( sentenceArray[indexi][1] == "ZDA" ) {
 					// Do ZDA things
 						console.log('Doing ZDA things.');
-				
+
 					// Merge Key-Value pairs as defined above
-					// https://stackoverflow.com/a/50985915/13849868
-					sentenceArray[indexi] = zdaKeys.reduce((obj, key, index) => (
-						{ ...obj, [key]: sentenceArray[indexi][index] }	
-					), {})
+					// Apply NMEA-183 Keys to each array element
+					keysReduce (zdaKeys, sentenceArray[indexi]);
 					//  returns [{talkerId: '$GN', sentenceType: 'ZDA', utc: '...]
-					
+
 				}
 				else {
 					console.log('Sentence type failed.');
@@ -209,9 +212,6 @@ function sentenceParserFunction (inputBlock) {
 	}
 	console.log('final', sentenceArray)
 };
-
-// Collapse the array and prepare to send out by assigning value to msg.payload
-	mergedPayload = sentenceArray.reduce((r,c) => ({...r,...c}), {})   // Dont khnow what this does.......
 
 /* ==========================================================
 #															#
